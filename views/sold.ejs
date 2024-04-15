@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Add your meta tags, title, and CSS links here -->
+</head>
+<body data-bs-theme="dark">
+    <!-- Header -->
+    <header data-bs-theme="dark" >
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <!-- Include header -->
+            <%- include('header') %>
+        </nav>
+    </header>
+
+    <div class="container" style="margin-top: 100px; background-color: dark;" data-bs-theme="dark">
+        <h1 style="color: #fff;">Sold Shoes</h1>
+
+        <% soldShoes.forEach((shoe) => { %>
+            <div class="shoe-details" style="margin-top: 50px;">
+                <!-- Display shoe details -->
+                <h2><%= shoe.name %></h2>
+                <p>Size: <%= shoe.size %></p>
+                <p>Price: <%= shoe.price %> Rs </p>
+                <p>Buying Date: <%= shoe.buyingDate %></p>
+                <p>Description: <%= shoe.description %></p>
+                <p>Category: <%= shoe.category %></p>
+                <p>Material: <%= shoe.materialUsed %></p>
+                <p>Customer Name: <%= shoe.customerName %></p>
+                <p>Customer Email: <%= shoe.customerEmail %></p>
+                <p>Customer Address: <%= shoe.customerAddress %></p>
+                <!-- Add more shoe details here -->
+            </div>
+        <% }); %>
+    </div>
+</body>
+</html>

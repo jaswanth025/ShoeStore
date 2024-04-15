@@ -1,0 +1,91 @@
+
+
+body {
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+#logo{
+    height: 70px;  
+    margin-left:20px;
+}
+
+.search-bar {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.search-bar input[type="text"] {
+    width: 300px;
+    height:  38px;
+    padding: 5px;
+    border: 10px solid black;
+    background-color: black;
+
+}
+.Search{
+    height:40px;
+    width:100px;
+    background-color: black;
+    color:white;
+    border: 0px;
+}
+
+.register-login {
+    display: flex;
+    align-items: center;
+    background-color: black;
+}
+
+.register-login button {
+    padding: 8px 15px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.product-card {
+   /* color:  rgb(29, 195, 87);*/
+    color:black;
+    display: inline-block;
+    width: 400px; /* Adjust width as needed */
+    margin: 20px; /* Add space between cards */
+    text-align: left;
+    
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color:#c3c5ca;
+}
+
+.product-image {
+    width: 100%;
+    height: 200px; /* Adjust height as needed */
+    object-fit: cover;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.product-details {
+    padding: 20px;
+}
+
+/* Centering the product cards */
+.container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#outer{
+    margin-top: 80px;
+    margin-left: 70px;;   
+}

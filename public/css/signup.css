@@ -1,0 +1,60 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url('/images/back.jpg');
+    background-size: 90%;
+    background-position: center calc(100% - 1030px); /* Same background image position */
+    display: grid;
+    place-items: center;
+    color: #fff;
+    opacity: 0.9; /* Add opacity to background image */
+}
+
+h1 {
+    margin-top: 20vh;
+    margin-bottom: 30px;
+    margin-left: 820px;
+}
+
+input {
+    font-size: 1rem;
+    width: 300px;
+    padding: 10px 12px; /* Increase padding for better appearance */
+    margin: 10px 0;
+    border: none;
+    border-radius: 8px; /* Add border-radius for rounded corners */
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    color: #000; /* Set text color to black */
+    outline: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    height: 50px; /* Increase height of input fields */
+}
+
+input::placeholder {
+    color: #555; /* Set placeholder text color */
+}
+
+.sub {
+    background-color: #4CAF50;
+    cursor: pointer;
+    color: #fff;
+    border: none;
+    padding: 12px 20px; /* Increase padding for better appearance */
+    border-radius: 8px;
+    font-size: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+form {
+    text-align: center;
+    padding: 30px; /* Increase padding for better appearance */
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    border-radius: 10px; /* Add border-radius for rounded corners */
+    margin-left: 850px;
+    margin-bottom: 200px;
+}
