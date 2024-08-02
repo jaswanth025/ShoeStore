@@ -5,10 +5,7 @@ dotenv.config();
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URL, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    });
+    await mongoose.connect(process.env.MONGO_URL, {});
     console.log("Database connected successfully.");
   } catch (error) {
     console.error("Error connecting to MongoDB:", error);
@@ -19,18 +16,18 @@ const connectDB = async () => {
 const usersSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true
+    required: true,
   },
   password: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
 });
 
 const ShoesSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true
+    required: true,
   },
   size: String,
   price: Number,
@@ -38,7 +35,7 @@ const ShoesSchema = new mongoose.Schema({
   description: String,
   category: {
     type: String,
-    enum: ['Sports', 'Sneakers', 'Loafers'] // Define allowed categories
+    enum: ["Sports", "Sneakers", "Loafers"], // Define allowed categories
   },
   materialUsed: String,
   ownerName: String, // Add owner's name
@@ -47,14 +44,14 @@ const ShoesSchema = new mongoose.Schema({
   Pic: {
     filename: String,
     contentType: String,
-    data: Buffer
-  }
+    data: Buffer,
+  },
 });
 
 const SoldShoeSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true
+    required: true,
   },
   size: String,
   price: Number,
@@ -71,12 +68,30 @@ const SoldShoeSchema = new mongoose.Schema({
   customerCity: String, // Customer's city
   customerState: String, // Customer's state
   customerPostalCode: String, // Customer's postal code
-  customerCountry: String // Customer's country
+  customerCountry: String, // Customer's country
+});
+
+const bidsShoeSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  size: String,
+  bidprice: Number,
+  buyingDate: Date,
+  description: String,
+  category: String,
+  materialUsed: String,
+  ownerName: String, // Owner's name
+  ownerEmail: String, // Owner's email
+  ownerPhoneNo: String, // Owner's phone number
+  customerName: String, // Customer's name
 });
 
 // Create models based on the schemas
 const LogInCollection = mongoose.model("LogInCollection", usersSchema);
-const Shoe = mongoose.model('ShoeData', ShoesSchema);
-const SoldShoe = mongoose.model('SoldShoe', SoldShoeSchema);
+const Shoe = mongoose.model("ShoeData", ShoesSchema);
+const SoldShoe = mongoose.model("SoldShoe", SoldShoeSchema);
+const bidsShoe = mongoose.model("bidsShoe", bidsShoeSchema);
 
-module.exports = { connectDB, LogInCollection, Shoe, SoldShoe };
+module.exports = { connectDB, LogInCollection, Shoe, SoldShoe, bidsShoe };

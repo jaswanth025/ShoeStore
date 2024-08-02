@@ -100,7 +100,7 @@ app.get("/sell", (req, res) => {
   res.render("sell", { naming: naming });
 });
 
-app.post("/bid/:shoeId", async (req, res) => {
+app.post("/bids/:shoeId", async (req, res) => {
   try {
     const shoeId = req.params.shoeId;
     const shoe = await Shoe.findById(shoeId);
@@ -109,76 +109,16 @@ app.post("/bid/:shoeId", async (req, res) => {
       return res.status(404).send("Shoe not found");
     }
 
-    // Extract the bidding amount from the request body
-    const { bidAmount } = req.body;
-
-    // Add the shoe to the bidsShoe collection with the bidding amount
-    const newBidShoe = new bidsShoe({
-      name: shoe.name,
-      size: shoe.size,
-      bidprice: bidAmount,
-      buyingDate: shoe.buyingDate,
-      description: shoe.description,
-      category: shoe.category,
-      materialUsed: shoe.materialUsed,
-      ownerName: shoe.ownerName,
-      ownerEmail: shoe.ownerEmail,
-      ownerPhoneNo: shoe.ownerPhoneNo,
-    });
-
+    // Add the shoe to the bidsShoe collection
+    const newBidShoe = new bidsShoe(shoe);
     await newBidShoe.save();
 
-    // Optionally remove the shoe from the Shoe collection if it shouldn't be available for other bids
+    // Remove the shoe from the Shoe collection
     await Shoe.findOneAndDelete({ _id: shoeId });
 
-    res.redirect("/home");
+    res.render("home");
   } catch (error) {
-    console.error("Error while submitting bid:", error);
-    res.status(500).send("Internal Server Error");
-  }
-});
-
-app.post("/accept-bid", async (req, res) => {
-  try {
-    const { shoeId } = req.body;
-    const acceptedShoe = await bidsShoe.findById(shoeId);
-
-    if (acceptedShoe) {
-      const soldShoe = new SoldShoe({
-        name: acceptedShoe.name,
-        size: acceptedShoe.size,
-        price: acceptedShoe.bidprice,
-        buyingDate: acceptedShoe.buyingDate,
-        description: acceptedShoe.description,
-        category: acceptedShoe.category,
-        materialUsed: acceptedShoe.materialUsed,
-        ownerName: acceptedShoe.ownerName,
-        ownerEmail: acceptedShoe.ownerEmail,
-        ownerPhoneNo: acceptedShoe.ownerPhoneNo,
-        customerName: acceptedShoe.customerName,
-        // Add more customer details if necessary
-      });
-      await soldShoe.save();
-      await bidsShoe.findByIdAndDelete(shoeId);
-      await Shoe.findOneAndDelete({ _id: shoeId });
-      res.redirect("/bids");
-    } else {
-      res.status(404).send("Shoe not found");
-    }
-  } catch (error) {
-    console.error("Error accepting bid:", error);
-    res.status(500).send("Internal Server Error");
-  }
-});
-
-// Route to reject a bid
-app.post("/reject-bid", async (req, res) => {
-  try {
-    const { shoeId } = req.body;
-    await bidsShoe.findByIdAndDelete(shoeId);
-    res.redirect("/bids");
-  } catch (error) {
-    console.error("Error rejecting bid:", error);
+    console.error("Error while fetching shoe details:", error);
     res.status(500).send("Internal Server Error");
   }
 });
@@ -227,22 +167,10 @@ app.post("/submit", upload.single("Pic"), async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
-app.get("/add", (req, res) => {
-  res.render("add");
-});
-app.get("/bids", async (req, res) => {
-  try {
-    const bidShoes = await bidsShoe.find({});
-    res.render("bids", { bidShoes });
-  } catch (error) {
-    console.error("Error fetching bid shoes:", error);
-    res.status(500).send("Internal Server Error");
-  }
-});
+
 app.get("/view/:shoeId", async (req, res) => {
   try {
     const shoeId = req.params.shoeId;
-    console.log(shoeId);
     const shoe = await Shoe.findById(shoeId);
     res.render("view", { shoe: shoe });
   } catch (error) {
